@@ -1,0 +1,67 @@
+name: Claude Issue Triage
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude Issue Triage
+        id: claude-triage
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          claude_args: '--allowedTools "Bash(gh issue view:*),Bash(gh label list:*),Bash(gh issue edit:*),Bash(gh issue comment:*)"'
+          prompt: |
+            REPO: ${{ github.repository }}
+            ISSUE NUMBER: ${{ github.event.issue.number }}
+            TITLE: ${{ github.event.issue.title }}
+            BODY:
+            ---
+            ${{ github.event.issue.body }}
+            ---
+
+            Este es un proyecto de Tetris en vanilla JS (HTML5 Canvas + CSS3 + JS puro, sin
+            dependencias ni build step). El código vive en `index.html`, `style.css` y
+            `game.js` (board matrix, rotación/colisión de piezas, game loop, línea de
+            puntuación, ghost piece). Lee esos archivos si necesitas contexto técnico para
+            diagnosticar el problema.
+
+            Pasos a seguir:
+
+            1. Ejecuta `gh label list` para ver las etiquetas disponibles en el repo.
+            2. Clasifica el issue (bug, enhancement, documentation, question, duplicate,
+               invalid, wontfix, help wanted, good first issue, accessibility, etc.) y
+               aplícale las etiquetas apropiadas con
+               `gh issue edit ${{ github.event.issue.number }} --add-label "label1,label2"`.
+               Usa solo etiquetas que ya existan; no crees etiquetas nuevas.
+            3. Publica UN comentario en el issue con
+               `gh issue comment ${{ github.event.issue.number }} --body "..."` que sirva de
+               diagnóstico general, en español, como base para implementar la solución
+               después. El comentario debe incluir, en Markdown:
+               - **Resumen del problema**: qué está pasando, en una o dos frases.
+               - **Área afectada**: qué archivo(s)/función(es) de `game.js`, `index.html` o
+                 `style.css` probablemente están involucrados (usa referencias tipo
+                 `archivo:línea` cuando puedas identificarlas leyendo el código).
+               - **Causa probable**: tu hipótesis técnica de la causa raíz, si es posible
+                 identificarla.
+               - **Posible enfoque de solución**: una propuesta breve de cómo abordarlo,
+                 sin implementarla todavía.
+               - **Severidad/prioridad estimada**: baja, media o alta, con una frase de
+                 justificación.
+
+            No modifiques ningún archivo del código ni crees commits ni PRs — esta tarea es
+            solo de triage y diagnóstico. No agregues más de un comentario ni etiquetes el
+            issue más de una vez.
