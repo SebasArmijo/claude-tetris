@@ -50,7 +50,9 @@ jobs:
             3. Publica UN comentario en el issue con
                `gh issue comment ${{ github.event.issue.number }} --body "..."` que sirva de
                diagnóstico general, en español, como base para implementar la solución
-               después. El comentario debe incluir, en Markdown:
+               después. El comentario debe estar escrito en formato Markdown válido que
+               GitHub pueda renderizar correctamente (encabezados, listas, negritas,
+               bloques de código con `archivo:línea`, etc.), e incluir:
                - **Resumen del problema**: qué está pasando, en una o dos frases.
                - **Área afectada**: qué archivo(s)/función(es) de `game.js`, `index.html` o
                  `style.css` probablemente están involucrados (usa referencias tipo
