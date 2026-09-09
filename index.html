@@ -72,6 +72,24 @@
       <div class="overlay-box">
         <p id="overlay-title">GAME OVER</p>
         <p id="overlay-score"></p>
+
+        <div id="name-entry" class="name-entry hidden">
+          <p class="name-entry-label">¡Nueva puntuación en el top 5!</p>
+          <input type="text" id="player-name-input" class="name-input" maxlength="10" placeholder="Tu nombre" />
+          <button id="save-score-btn">Guardar</button>
+        </div>
+
+        <div class="highscores">
+          <span class="label">TOP 5</span>
+          <table id="overlay-highscores-table" class="highscores-table">
+            <tbody id="overlay-highscores-body"></tbody>
+          </table>
+          <div class="highscore-stats">
+            <span>Mejor combo: <strong id="overlay-best-combo">0</strong></span>
+            <span>Líneas máximas: <strong id="overlay-max-lines">0</strong></span>
+          </div>
+        </div>
+
         <button id="restart-btn">Reiniciar</button>
       </div>
     </div>
@@ -96,6 +114,26 @@
           <label class="label" for="start-level-select">NIVEL INICIAL</label>
           <select id="start-level-select"></select>
         </div>
+      </div>
+    </div>
+
+    <div id="start-screen" class="overlay start-screen">
+      <div class="overlay-box">
+        <h2 class="start-screen-title">TETRIS</h2>
+
+        <div class="highscores">
+          <span class="label">TOP 5</span>
+          <table id="start-highscores-table" class="highscores-table">
+            <tbody id="start-highscores-body"></tbody>
+          </table>
+          <div class="highscore-stats">
+            <span>Mejor combo: <strong id="start-best-combo">0</strong></span>
+            <span>Líneas máximas: <strong id="start-max-lines">0</strong></span>
+          </div>
+        </div>
+
+        <button id="play-btn">Jugar</button>
+        <button id="reset-scores-btn" class="reset-scores-btn">Reiniciar récords</button>
       </div>
     </div>
   </div>
