@@ -21,6 +21,12 @@
   --overlay-title: #e57373;
   --restart-color: #0f0f17;
   --grid-line: #22222e;
+  --highscore-row-bg: rgba(255, 255, 255, 0.03);
+  --highscore-row-new-bg: rgba(122, 162, 247, 0.35);
+  --highscore-row-new-text: #ffffff;
+  --secondary-btn-bg: transparent;
+  --secondary-btn-border: #3a3a5a;
+  --secondary-btn-color: #888;
 }
 
 body.light-theme {
@@ -39,6 +45,12 @@ body.light-theme {
   --overlay-title: #c62828;
   --restart-color: #ffffff;
   --grid-line: #dcdce6;
+  --highscore-row-bg: rgba(0, 0, 0, 0.03);
+  --highscore-row-new-bg: rgba(51, 85, 204, 0.2);
+  --highscore-row-new-text: #1c1c26;
+  --secondary-btn-bg: transparent;
+  --secondary-btn-border: #c4c4d4;
+  --secondary-btn-color: #55555f;
 }
 
 body {
@@ -218,6 +230,9 @@ kbd {
   flex-direction: column;
   gap: 12px;
   align-items: center;
+  max-height: 100%;
+  overflow-y: auto;
+  padding: 12px;
 }
 
 #overlay-title {
@@ -248,5 +263,153 @@ kbd {
 }
 
 #restart-btn:hover {
+  background: var(--accent-hover);
+}
+
+/* ---- Pantalla de inicio ---- */
+.start-screen {
+  background: var(--panel-bg);
+  z-index: 2;
+}
+
+.start-screen-title {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 6px;
+  color: var(--accent);
+}
+
+#play-btn {
+  margin-top: 4px;
+  background: var(--accent);
+  color: var(--restart-color);
+  border: none;
+  border-radius: 6px;
+  padding: 10px 28px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: background 0.15s;
+}
+
+#play-btn:hover {
+  background: var(--accent-hover);
+}
+
+.reset-scores-btn {
+  background: var(--secondary-btn-bg);
+  color: var(--secondary-btn-color);
+  border: 1px solid var(--secondary-btn-border);
+  border-radius: 6px;
+  padding: 6px 16px;
+  font-size: 11px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.reset-scores-btn:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+/* ---- Tabla de récords ---- */
+.highscores {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.highscores-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+}
+
+.highscores-table td {
+  padding: 4px 8px;
+  background: var(--highscore-row-bg);
+  color: var(--text);
+}
+
+.highscores-table td:first-child {
+  text-align: left;
+  color: var(--label-color);
+}
+
+.highscores-table td:last-child {
+  text-align: right;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.highscores-table .highscore-empty td {
+  text-align: center;
+  color: var(--controls-color);
+}
+
+.highscore-row--new td {
+  background: var(--highscore-row-new-bg);
+  color: var(--highscore-row-new-text);
+  font-weight: 700;
+}
+
+.highscore-stats {
+  display: flex;
+  gap: 16px;
+  font-size: 11px;
+  color: var(--controls-color);
+}
+
+.highscore-stats strong {
+  color: var(--accent);
+}
+
+/* ---- Registro de nombre (nuevo récord) ---- */
+.name-entry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.name-entry.hidden {
+  display: none;
+}
+
+.name-entry-label {
+  font-size: 12px;
+  color: var(--accent);
+}
+
+.name-input {
+  background: var(--kbd-bg);
+  border: 1px solid var(--kbd-border);
+  border-radius: 4px;
+  color: var(--text);
+  padding: 6px 10px;
+  font-size: 13px;
+  text-align: center;
+  width: 160px;
+}
+
+#save-score-btn {
+  background: var(--accent);
+  color: var(--restart-color);
+  border: none;
+  border-radius: 6px;
+  padding: 6px 20px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: background 0.15s;
+}
+
+#save-score-btn:hover {
   background: var(--accent-hover);
 }
